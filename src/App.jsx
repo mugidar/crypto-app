@@ -1,3 +1,11 @@
-export default function App() {
-  return <h1>Init</h1>;
-}
+import React from "react";
+
+import CryptoContextProvider from "./context/crypto-context";
+import AppLayout from "./components/layout/AppLayout";
+
+const App = () => (
+  <CryptoContextProvider>
+   <AppLayout/>
+  </CryptoContextProvider>
+);
+export default App;

@@ -2,6 +2,7 @@ import { Card, Layout, List, Spin, Statistic, Tag, Typography } from "antd";
 import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
 import { useContext } from "react";
 import { CryptoContext } from "../../context/crypto-context";
+import { useCrypto } from "../../hooks";
 
 const siderStyle = {
   textAlign: "center",
@@ -17,7 +18,7 @@ const data = [
   "Los Angeles battles huge wildfires.",
 ];
 const AppSider = () => {
-  const {assets} = useContext(CryptoContext)
+  const {assets} = useCrypto()
 
   return (
     <Layout.Sider width="25%" style={{ ...siderStyle, padding: "15px" }}>

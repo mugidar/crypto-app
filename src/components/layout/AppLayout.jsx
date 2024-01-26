@@ -9,6 +9,7 @@ const AppLayout = () => {
   const { isLoading } = useContext(CryptoContext);
 
   if (isLoading) return <Spin fullscreen />;
+  
   return (
     <Layout>
       <AppHeader />

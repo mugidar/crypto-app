@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Button, Drawer, Layout, Modal, Select, Space } from "antd";
 import { useCrypto } from "../../hooks";
+import AddAssetForm from "../AddAssetForm";
+import CoinInfoModal from "../CoinInfoModal";
 const headerStyle = {
   display: "flex",
   justifyContent: "space-between",
@@ -40,8 +42,8 @@ const options = [
 
 const AppHeader = () => {
   const { crypto } = useCrypto();
-  const [selectedValue, setSelectedValue] = useState("");
-  const [selectedCoin, setSelectedCoin] = useState({});
+  const [selectedValue, setSelectedValue] = useState(crypto[0]?.id);
+  const [selectedCoin, setSelectedCoin] = useState(crypto[0]);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -74,10 +76,9 @@ const AppHeader = () => {
     showModal();
   };
 
-  useEffect(
-    () => setSelectedCoin(crypto.find((c) => c.id === selectedValue)),
-    [selectedValue]
-  );
+  useEffect(() => {
+    setSelectedCoin(crypto.find((c) => c.id === selectedValue));
+  }, [selectedValue]);
 
   useEffect(() => {
     const callback = (e) => {
@@ -114,11 +115,7 @@ const AppHeader = () => {
       />
       <Button onClick={() => showDrawer()}>Add coin</Button>
       <Modal open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-        {selectedCoin && (
-          <h1>
-            Buy {selectedCoin.name} - {selectedCoin.price}$
-          </h1>
-        )}
+        {<CoinInfoModal coin={selectedCoin} /> }
       </Modal>
 
       <Drawer
@@ -128,9 +125,7 @@ const AppHeader = () => {
         open={isDrawerOpen}
         key={placement}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <AddAssetForm />
       </Drawer>
     </Layout.Header>
   );
